@@ -71,8 +71,8 @@ cd fleamarket-webapp
 
 3. **Add Firebase Configuration**:  
    - Obtain your Firebase configuration details from **Project Settings > General > Your Apps**.  
-   - Save the Firebase configuration JSON to the project directory (`wwwroot` or another suitable location).  
-   - Update your application code to load and use the Firebase configuration.  
+   - Save the Firebase configuration JSON to the Properties folder in the project root and save the file name as "fleamarket-firebase-config.json".  
+   - If you completed the above steps it should work straight away.  
 
 ---
 
