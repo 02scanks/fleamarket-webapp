@@ -1,0 +1,113 @@
+@model Item
+
+@{
+    ViewData["Title"] = "Create Listing";
+}
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<body>
+
+
+    <!-- Add Item Page -->
+    <div class="add-item-page" style="margin-top:-65px;">
+        <header style="background-color: white;">
+            <h1>Sell Your Item</h1>
+        </header>
+        <form id="submit-form" action="Item/CreateListing" method="POST">
+            <label for="item-name">Item Name:</label>
+            <input type="text" id="item-name" name="Name" required>
+
+            <label for="price">Price:</label>
+            <input type="number" id="price" name="Price" required>
+
+            <label for="location">Location:</label>
+            <input type="text" id="location" name="Location" required>
+
+            <label for="description">Description:</label>
+            <textarea id="description" name="Description" rows="4" required></textarea>
+
+            <label for="image">Upload Image:</label>
+            <input type="file" id="image-upload" name="image" accept="image/*">
+
+            <input type="hidden" id="image-url" name="imageURL">
+            <input type="hidden" name="SellerId" value="@User.Identity.Name">
+
+            <button type="button" onclick="uploadFile(event)">Add Item</button>
+        </form>
+    </div>
+
+
+    <script type="module">
+
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-analytics.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-storage.js";
+
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCpXomTb5s_1NE2YlhZTSS1a7SO7PDDQvs",
+            authDomain: "fleamarket-7cb3c.firebaseapp.com",
+            projectId: "fleamarket-7cb3c",
+            storageBucket: "fleamarket-7cb3c.firebasestorage.app",
+            messagingSenderId: "453824005429",
+            appId: "1:453824005429:web:921f5aeb4b2cf6bed5b87c",
+            measurementId: "G-ECNWS3V6MJ"
+        };
+
+        // Initialize Firebase
+        const firebaseApp = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(firebaseApp);
+        const storage = getStorage(firebaseApp);
+
+
+        // Upload image to firebase
+        async function uploadFile(event) {
+            console.log("upload file function triggered");
+
+
+            event.preventDefault(); // Prevent the form from submitting immediately
+
+            const fileInput = document.getElementById('image-upload');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                console.log("No file selected!");
+                return;
+            }
+
+            console.log("File selected:", file);
+
+            // Create a reference to Firebase Storage
+            const storageRef = ref(storage, `images/${file.name}`);
+            console.log("storage reference successful");
+
+            try {
+                // Upload the file to Firebase storage
+                const snapshot = await uploadBytes(storageRef, file);
+                console.log("Upload successful:", snapshot);
+
+                // Get the download URL for the uploaded file
+                const url = await getDownloadURL(snapshot.ref);
+                console.log("File available at:", url);
+
+                // set the models URL to the uploaded image URL
+                document.getElementById('image-url').value = url;
+
+                // Now, submit the form after the upload is complete
+                document.getElementById('submit-form').submit();
+            } catch (error) {
+                console.log("Error when uploading file:", error);
+            }
+
+            console.log("function successful");
+        }
+
+        // Attach the function to the global scope to make it accessible
+        window.uploadFile = uploadFile;
+
+    </script>
+</body>

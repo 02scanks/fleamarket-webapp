@@ -1,0 +1,117 @@
+@model List<Item>
+
+@{
+    ViewData["Title"] = "Search Results";
+}
+
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <header class="text-center mb-4" style="background-color: white; margin-top: -50px;">
+        <h1 class="display-4">Search Results</h1>
+
+        <form action="Search" method="get">
+            <div class="marketplace-searchfield d-flex justify-content-end align-items-center" style="margin-bottom: 20px;">
+                <input 
+                    type="text" 
+                    id="messageText" 
+                    name="query" 
+                    placeholder="Search items..." 
+                    class="form-control rounded-pill me-2" 
+                    style="max-width: 300px; padding: 10px; border: 1px solid #ccc; font-size: 16px;"
+                />
+                <button 
+                    type="submit" 
+                    class="btn btn-primary rounded-pill px-4" 
+                    style="background-color: #c2a6ea; border: none; font-size: 16px; font-weight: bold;"
+                >
+                    Search
+                </button>
+            </div>
+        </form>
+    
+    </header>
+
+        
+
+    <div class="row">
+        @if (Model.Count() > 0)
+        {
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                    <a class="clickable-item text-decoration-none" asp-action="ItemDetail" asp-controller="Item" asp-route-id="@item.Id">
+                        <div class="item-card rounded shadow-sm overflow-hidden">
+                            <img src="@item.ImageURL" class="card-img-top" alt="@item.Name">
+                            <div class="card-body text-center">
+                                <h5 class="card-title text-truncate">@item.Name</h5>
+                                <p class="card-text text-muted">$@item.Price</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12">
+                <div class="alert alert-warning text-center">
+                    <h4>No Items Found :(</h4>
+                    <p>We couldnt find what you were looking for :(. Please check back later!</p>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .item-card {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+    }
+
+    .item-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .item-card img {
+        height: 200px;
+        object-fit: cover;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .card-title {
+        font-size: 1rem;
+        font-weight: bold;
+        color: #212529;
+        margin-bottom: 5px;
+    }
+
+    .card-text {
+        font-size: 0.9rem;
+        color: #6c757d;
+    }
+
+    .alert {
+        background-color: #f8d7da;
+        color: #721c24;
+        border-radius: 10px;
+        padding: 20px;
+    }
+
+    .alert h4 {
+        margin-bottom: 10px;
+        font-size: 1.25rem;
+    }
+</style>

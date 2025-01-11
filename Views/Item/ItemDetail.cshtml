@@ -1,0 +1,31 @@
+@model Item
+
+@{
+    ViewData["Title"] = $"{Model.Name}";
+}
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- Item Detail Page -->
+    <div class="item-detail-page" style="margin-bottom: 50px; margin-top: -50px;">
+        
+        <div class="item-detail">
+            <img src="@Model.ImageURL" style="width: 400px; height: 400px;" alt="@Model.Name">
+            <h2>@Model.Name</h2>
+            <p class="price">$@Model.Price</p>
+            <p class="location">Location: <strong>@Model.Location</strong></p>
+            <p class="description">Description: <strong>@Model.Description</strong></p>
+            <!--
+            <a 
+            asp-controller="Message" 
+            asp-action="PrivateChat" 
+            asp-route-sellerId="@Model.SellerId" 
+            class="btn btn-primary"
+            style="background-color: #c2a6ea; border: none;">Message Seller
+            </a>
+            -->
+        </div>
+    </div>

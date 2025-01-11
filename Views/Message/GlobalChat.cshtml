@@ -1,0 +1,204 @@
+@using Microsoft.AspNetCore.SignalR.Client;
+
+@{
+    ViewData["Title"] = "Inbox";
+}
+
+<div class="inbox-container" style="padding-top: 35px; padding-bottom: 65px;">
+    <!-- Chat List Section -->
+    <div class="chat-list rounded">
+        <h3>Chats</h3>
+        <div class="chat-item">
+            <input type="checkbox" id="chat1" />
+            <label for="chat1">User 1</label>
+            <button onclick="deleteChat('chat1')">Delete</button>
+        </div>
+        <!-- Add more chat items dynamically via SignalR or your backend -->
+    </div>
+
+    <!-- Chat Log Section -->
+    <div class="chat-log rounded">
+        <div class="messages">
+            <!-- More messages will be inserted dynamically -->
+        </div>
+
+        <!-- Message Input Section -->
+        <div class="message-input">
+            <input type="text" id="messageText" placeholder="Type a message..." />
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+</div>
+
+<!-- Add CSS Styling -->
+<style>
+    :root {
+        --primary-color: #e0d4f3; /* Soft lavender */
+        --secondary-color: #a88de2; /* Medium purple */
+        --border-color: #d1c4e9; /* Light border */
+        --text-light: #ffffff; /* White text */
+        --text-dark: #212529; /* Dark gray text */
+    }
+
+    body {
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f7f8f9;
+        color: var(--text-dark);
+    }
+
+    .inbox-container {
+        display: flex;
+        height: calc(100vh - 100px);
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .chat-list {
+        width: 280px;
+        background-color: var(--primary-color);
+        color: var(--text-dark);
+        padding: 20px;
+        overflow-y: auto;
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .chat-list h3 {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+
+    .chat-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        font-size: 16px;
+    }
+
+    .chat-item input[type="checkbox"] {
+        margin-right: 10px;
+        accent-color: var(--secondary-color);
+    }
+
+    .chat-item button {
+        margin-left: auto;
+        padding: 5px 12px;
+        font-size: 14px;
+        background-color: var(--secondary-color);
+        border: none;
+        color: var(--text-light);
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+    .chat-item button:hover {
+        background-color: #9778c9;
+    }
+
+    .chat-log {
+        flex-grow: 1;
+        background-color: #ffffff;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .messages {
+        flex-grow: 1;
+        overflow-y: auto;
+        margin-bottom: 20px;
+        font-size: 16px;
+    }
+
+    .message {
+        margin-bottom: 10px;
+        display: flex;
+    }
+
+    .sender {
+        font-weight: bold;
+        color: var(--secondary-color);
+        margin-right: 5px;
+    }
+
+    .message-text {
+        color: var(--text-dark);
+    }
+
+    .message-input {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .message-input input {
+        width: 80%;
+        padding: 10px;
+        font-size: 14px;
+        border: 1px solid #BDC3C7;
+        border-radius: 25px;
+        background-color: #FFFFFF;
+    }
+
+    .message-input button {
+        padding: 10px 18px;
+        font-size: 14px;
+        background-color: var(--secondary-color);
+        color: var(--text-light);
+        border: none;
+        cursor: pointer;
+        border-radius: 25px;
+    }
+
+    .message-input button:hover {
+        background-color: #9778c9;
+    }
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.0/signalr.min.js"></script>
+<script>
+    const connection = new signalR.HubConnectionBuilder().withUrl("/chathub").build();
+    connection.start().then(() => {
+        console.log("SignalR connected!");
+    }).catch(err => console.error("Error connecting to SignalR hub:", err));
+
+    connection.on("ReceiveMessage", (user, message) => {
+
+        const messageContainer = document.querySelector('.messages');
+
+        const newMessage = document.createElement('div');
+
+            newMessage.classList.add('message');
+            newMessage.innerHTML = `
+                <span class="sender">${user}:    </span>
+                <span class="message-text">${message}</span>
+            `;
+            
+        messageContainer.appendChild(newMessage);
+    });
+
+
+    // Simulate deletion of a chat when checkbox is clicked
+    function deleteChat(chatId) {
+        const chatItem = document.getElementById(chatId);
+        if (chatItem) chatItem.closest('.chat-item').remove();
+    }
+
+   
+    function sendMessage() {
+
+        const messageText = document.getElementById('messageText').value;
+        if (messageText.trim() !== '') {
+            
+            connection.invoke("SendMessage", `@User.Identity.Name`, messageText);
+            document.getElementById('messageText').value = '';
+        }
+    }
+</script>
