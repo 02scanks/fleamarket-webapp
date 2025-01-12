@@ -37,8 +37,8 @@ Welcome to **Flea Market**, a *pretend* online vintage clothing marketplace desi
 ## 🚀 Getting Started
 
 ### Prerequisites  
-- [Visual Studio](https://visualstudio.microsoft.com/) (2022 or later)  
-- [.NET 6.0 SDK](https://dotnet.microsoft.com/download/dotnet/6.0)  
+- [Visual Studio](https://visualstudio.microsoft.com/) (2022 or later)
+- [.NET 9.0 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)  
 - A Firebase account with a configured project  
 - Git  
 
