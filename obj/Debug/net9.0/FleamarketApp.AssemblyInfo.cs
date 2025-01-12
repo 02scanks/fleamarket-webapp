@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FleamarketApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e0cc7bd7b9688447425d2f515b76df601c7cfba7")]
 [assembly: System.Reflection.AssemblyProductAttribute("FleamarketApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FleamarketApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

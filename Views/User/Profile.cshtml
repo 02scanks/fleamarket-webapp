@@ -4,7 +4,6 @@
     ViewData["Title"] = $"{Model.UserName}'s Profile";
 }
 
-
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -28,6 +27,9 @@
 
             <!-- Change Address Button -->
             <button class="btn btn-secondary-custom" data-bs-toggle="modal" data-bs-target="#changeAddressModal">Change Address</button>
+
+            <!-- Change Address Button -->
+            <button class="btn btn-secondary-custom" data-bs-toggle="modal" data-bs-target="#changeNumberModal" style="margin-top: 15px;">Change Phone Number</button>
         </div>
 
         <div class="col-md-8">
@@ -39,6 +41,7 @@
                     <p><strong>Username:</strong> @Model.UserName</p>
                     <p><strong>Email:</strong> @Model.Email</p>
                     <p><strong>Address:</strong> @Model.Address</p>
+                    <p><strong>Phone Number:</strong> @Model.PhoneNumber</p>
                 </div>
             </div>
         </div>
@@ -82,6 +85,27 @@
                         <input type="text" class="form-control" id="newAddress" name="newAddress" value="@Model.Address" required>
                     </div>
                     <button type="submit" class="btn btn-primary-custom">Update Address</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Changing Phone Number -->
+<div class="modal fade" id="changeNumberModal" tabindex="-1" aria-labelledby="changeNumberModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="changeNumberModalLabel">Change Phone Number</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="UpdatePhoneNumber" method="post">
+                    <div class="mb-3">
+                        <label for="address" class="form-label">New Phone Number</label>
+                        <input type="text" class="form-control" id="newNumber" name="newNumber" value="@Model.PhoneNumber" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary-custom">Update Phone Number</button>
                 </form>
             </div>
         </div>

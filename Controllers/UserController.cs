@@ -153,6 +153,20 @@ public class UserController : Controller
 
         return RedirectToAction("Profile");
     }
+
+    [HttpPost]
+    [Authorize]
+    public async Task<IActionResult> UpdatePhoneNumber(string newNumber)
+    {
+        // get model
+        User? user = await _userRepository.GetUserByUsernameAsync(User.Identity.Name);
+        if(user == null)
+            return View("Error: User model could not be loaded");
+
+        await _userService.UpdatePhoneNumber(user, newNumber);
+
+        return RedirectToAction("Profile");
+    }
     #endregion
 
 

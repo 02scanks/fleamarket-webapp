@@ -15,7 +15,7 @@
         <header style="background-color: white;">
             <h1>Sell Your Item</h1>
         </header>
-        <form id="submit-form" action="Item/CreateListing" method="POST">
+        <form id="submit-form" asp-controller="Item" asp-action="CreateListing" asp-route-username="@User.Identity.Name" method="POST">
             <label for="item-name">Item Name:</label>
             <input type="text" id="item-name" name="Name" required>
 
@@ -31,8 +31,9 @@
             <label for="image">Upload Image:</label>
             <input type="file" id="image-upload" name="image" accept="image/*">
 
-            <input type="hidden" id="image-url" name="imageURL">
+            <input type="hidden" id="image-url" name="ImageURL">
             <input type="hidden" name="SellerId" value="@User.Identity.Name">
+            <input type="hidden" name="SellerPhoneNumber" value="sds">
 
             <button type="button" onclick="uploadFile(event)">Add Item</button>
         </form>

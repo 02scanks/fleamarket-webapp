@@ -8,10 +8,12 @@ namespace FleamarketApp.Controllers;
 public class ItemController : Controller
 {
     private readonly AppDbContext _context;
+    private readonly IUserRepository _userRepository;
 
-    public ItemController(AppDbContext context)
+    public ItemController(AppDbContext context, IUserRepository userRepository)
     {
         _context = context;
+        _userRepository = userRepository;
     }
 
     // Returns a view displaying all items available for sale
@@ -26,7 +28,7 @@ public class ItemController : Controller
     // Returns a view where the user can list a new item for sale
     [Route("create")]
     [Authorize]
-    public IActionResult CreateListing()
+    public async Task<IActionResult> CreateListing()
     {
         Item newItem = new Item();
         return View(newItem);
@@ -34,12 +36,16 @@ public class ItemController : Controller
 
     [HttpPost]
     [Authorize]
-    public async Task<IActionResult> CreateListing(Item item)
+    [Route("create")]
+    public async Task<IActionResult> CreateListing(Item item, string username)
     {
         // validate
         if(!ModelState.IsValid)
             return View(item);
 
+        User currentUser = await _userRepository.GetUserByUsernameAsync(username);
+        item.SellerPhoneNumber = currentUser.PhoneNumber;
+        
         // add to db
         await _context.GlobalItems.AddAsync(item);
         await _context.SaveChangesAsync();

@@ -20,4 +20,10 @@ public class UserService : IUserService
         user.Address = newAddress;
         await _context.SaveChangesAsync();
     }
+
+    public async Task UpdatePhoneNumber(User user, string newNumber)
+    {
+        user.PhoneNumber = newNumber;
+        await _context.SaveChangesAsync();
+    }
 }

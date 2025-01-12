@@ -226,3 +226,4 @@
 /Users/malcolmscott/Documents/VsCode/FleamarketApp/FleamarketApp/obj/Debug/net9.0/compressed/o20rstpwrq-61n19gt1b8.gz
 /Users/malcolmscott/Documents/VsCode/FleamarketApp/FleamarketApp/obj/Debug/net9.0/compressed/bc2s5hgs1i-gmfxki53cp.gz
 /Users/malcolmscott/Documents/VsCode/FleamarketApp/FleamarketApp/obj/Debug/net9.0/compressed/t1sl5ke8f2-a20v3f62d3.gz
+/Users/malcolmscott/Documents/VsCode/FleamarketApp/FleamarketApp/obj/Debug/net9.0/FleamarketApp.sourcelink.json

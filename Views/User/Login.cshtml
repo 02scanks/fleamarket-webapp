@@ -1,9 +1,100 @@
-@model FleamarketApp.DTO.UserLoginDTO 
+@model FleamarketApp.DTO.UserLoginDTO
 
 @{
     ViewData["Title"] = "Login";
 }
 
+<style>
+    /* Color Scheme */
+    :root {
+        --primary-color: #c2a6ea; /* Light purple */
+        --secondary-color: #6c4ab6; /* Darker purple */
+        --primary-hover-color: #b592e2; /* Slightly darker primary for hover */
+        --secondary-hover-color: #5a3c99; /* Slightly darker secondary for hover */
+        --text-light: #ffffff; /* White text */
+        --text-dark: #212529; /* Dark gray text */
+    }
+
+    .login-page {
+        background-color: #f7f9fc;  /* Light background */
+        border-radius: 8px;
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        width: 100%;
+        max-width: 450px;
+        margin: 0 auto;
+        margin-bottom: 30px;  /* Added margin for spacing at the bottom */
+    }
+
+    h1 {
+        text-align: center;
+        color: var(--secondary-color);  /* Dark purple for heading */
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    label {
+        font-size: 14px;
+        color: var(--text-dark); /* Dark text for labels */
+        font-weight: 600;
+    }
+
+    .form-control {
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        padding: 10px;
+        font-size: 16px;
+        width: 100%;
+        margin-top: 5px;
+        box-sizing: border-box;
+    }
+
+    .form-control:focus {
+        border-color: var(--primary-color); /* Focused border in primary color */
+        outline: none;
+    }
+
+    .btn {
+        background-color: var(--primary-color);
+        color: var(--text-light); /* White text */
+        font-size: 16px;
+        font-weight: bold;
+        padding: 12px;
+        width: 100%;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+        background-color: var(--primary-hover-color); /* Hover effect */
+        color: var(--text-light); /* Keep the text color white on hover */
+    }
+
+    .register-link {
+        text-align: center;
+        margin-top: 15px;
+        font-size: 14px;
+    }
+
+    .register-link a {
+        color: var(--secondary-color);
+        text-decoration: none;
+    }
+
+    .register-link a:hover {
+        text-decoration: underline;
+    }
+
+    .text-danger {
+        font-size: 14px;
+        color: #e74c3c;
+    }
+</style>
 
 <div class="login-page">
     <h1>Login</h1>
@@ -11,7 +102,7 @@
         <div asp-validation-summary="All" class="text-danger"></div>
 
         <div class="form-group">
-            <label asp-for="Username"></label>
+            <label asp-for="Username">Username</label>
             <input asp-for="Username" name="Username" class="form-control" placeholder="Enter your username" required />
             <span asp-validation-for="Username" class="text-danger"></span>
         </div>

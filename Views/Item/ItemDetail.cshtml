@@ -9,23 +9,85 @@
 }
 
 
-<!-- Item Detail Page -->
-    <div class="item-detail-page" style="margin-bottom: 50px; margin-top: -50px;">
-        
-        <div class="item-detail">
-            <img src="@Model.ImageURL" style="width: 400px; height: 400px;" alt="@Model.Name">
-            <h2>@Model.Name</h2>
-            <p class="price">$@Model.Price</p>
-            <p class="location">Location: <strong>@Model.Location</strong></p>
-            <p class="description">Description: <strong>@Model.Description</strong></p>
-            <!--
-            <a 
-            asp-controller="Message" 
-            asp-action="PrivateChat" 
-            asp-route-sellerId="@Model.SellerId" 
-            class="btn btn-primary"
-            style="background-color: #c2a6ea; border: none;">Message Seller
-            </a>
-            -->
-        </div>
+<div class="item-detail-page" style="margin-bottom: 30px; margin-top: -30px;">
+    <div class="item-detail text-center" style="max-width: 500px; margin: 0 auto; padding: 15px;">
+        <!-- Item Image -->
+        <img class="item-image" id="itemImage" src="@Model.ImageURL" style="width: 300px; height: 300px; border-radius: 8px; cursor: pointer;" alt="@Model.Name">
+        <h2 style="margin-top: 15px; color: var(--secondary-color);">@Model.Name</h2>
+        <p class="price" style="font-size: 1.4rem; font-weight: bold; color: var(--primary-color);">$@Model.Price</p>
+        <p class="location" style="color: var(--text-dark);">Location: <strong>@Model.Location</strong></p>
+        <p class="description" style="color: var(--text-dark);">Description: <strong>@Model.Description</strong></p>
+
+        <!-- Contact Seller Button -->
+        <button id="contactSellerBtn" class="btn btn-primary" 
+            style="margin-top: 20px; background-color: var(--secondary-color); color: var(--text-light); border: none; padding: 8px 16px; border-radius: 6px; transition: background-color 0.3s;">
+            Contact Seller
+        </button>
+
+        <!-- Hidden Phone Number -->
+        <p id="phoneNumber" class="mt-4" 
+            style="display: none; font-size: 1.1rem; font-weight: bold; color: var(--primary-color); opacity: 0; transform: translateY(50px); transition: opacity 0.5s, transform 0.5s;">
+            📞 @Model.SellerPhoneNumber
+        </p>
     </div>
+</div>
+
+<!-- Modal for Inspect Image -->
+<div id="imageModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); z-index: 1050;">
+    <span id="closeModal" style="position: absolute; top: 20px; right: 30px; font-size: 30px; color: white; cursor: pointer;">&times;</span>
+    <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
+        <img id="modalImage" src="" style="max-width: 90%; max-height: 90%; border-radius: 8px;">
+    </div>
+</div>
+
+<script>
+    document.getElementById('contactSellerBtn').addEventListener('click', function () {
+        const phoneNumber = document.getElementById('phoneNumber');
+        phoneNumber.style.display = 'block';
+        setTimeout(() => {
+            phoneNumber.style.opacity = '1';
+            phoneNumber.style.transform = 'translateY(0)';
+        }, 10); // Small delay for smooth animation
+    });
+
+    document.getElementById('contactSellerBtn').addEventListener('mouseover', function (e) {
+        e.target.style.backgroundColor = "var(--secondary-hover-color)";
+    });
+
+    document.getElementById('contactSellerBtn').addEventListener('mouseout', function (e) {
+        e.target.style.backgroundColor = "var(--secondary-color)";
+    });
+</script>
+
+<script>
+    // Get elements
+    const itemImage = document.getElementById('itemImage');
+    const imageModal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
+    const closeModal = document.getElementById('closeModal');
+
+    // Open modal on image click
+    itemImage.addEventListener('click', () => {
+        modalImage.src = itemImage.src; // Set the modal image source
+        imageModal.style.display = 'block'; // Show the modal
+    });
+
+    // Close modal on click of "X"
+    closeModal.addEventListener('click', () => {
+        imageModal.style.display = 'none'; // Hide the modal
+    });
+
+    // Close modal on click outside the image
+    imageModal.addEventListener('click', (e) => {
+        if (e.target === imageModal) {
+            imageModal.style.display = 'none'; // Hide the modal
+        }
+    });
+</script>
+
+
+<style>
+    .item-image:hover {
+        transform: scale(1.05);
+    }
+</style>

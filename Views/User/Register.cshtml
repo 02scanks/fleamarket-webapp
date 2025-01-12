@@ -1,11 +1,101 @@
 @using FleamarketApp.DTO;
-
 @model CreateUserDTO
 
 @{
     ViewData["Title"] = "Register";
 }
 
+<style>
+    /* Color Scheme */
+    :root {
+        --primary-color: #c2a6ea; /* Light purple */
+        --secondary-color: #6c4ab6; /* Darker purple */
+        --primary-hover-color: #b592e2; /* Slightly darker primary for hover */
+        --secondary-hover-color: #5a3c99; /* Slightly darker secondary for hover */
+        --text-light: #ffffff; /* White text */
+        --text-dark: #212529; /* Dark gray text */
+    }
+
+    .register-page {
+        background-color: #f7f9fc;  /* Light background */
+        border-radius: 8px;
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        width: 100%;
+        max-width: 450px;
+        margin: 0 auto;
+        margin-bottom: 30px;  /* Added margin for spacing at the bottom */
+    }
+
+    h1 {
+        text-align: center;
+        color: var(--secondary-color);  /* Dark purple for heading */
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    label {
+        font-size: 14px;
+        color: var(--text-dark); /* Dark text for labels */
+        font-weight: 600;
+    }
+
+    .form-control {
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        padding: 10px;
+        font-size: 16px;
+        width: 100%;
+        margin-top: 5px;
+        box-sizing: border-box;
+    }
+
+    .form-control:focus {
+        border-color: var(--primary-color); /* Focused border in primary color */
+        outline: none;
+    }
+
+    .btn {
+        background-color: var(--primary-color);
+        color: var(--text-light); /* White text */
+        font-size: 16px;
+        font-weight: bold;
+        padding: 12px;
+        width: 100%;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+        background-color: var(--primary-hover-color); /* Hover effect */
+        color: var(--text-light);
+    }
+
+    .login-link {
+        text-align: center;
+        margin-top: 15px;
+        font-size: 14px;
+    }
+
+    .login-link a {
+        color: var(--secondary-color);
+        text-decoration: none;
+    }
+
+    .login-link a:hover {
+        text-decoration: underline;
+    }
+
+    .text-danger {
+        font-size: 14px;
+        color: #e74c3c;
+    }
+</style>
 
 <div class="register-page" asp-validation-summary="All">
     <h1>Register</h1>
@@ -16,27 +106,39 @@
             <label for="FirstName">First Name</label>
             <input type="text" id="FirstName" name="FirstName" class="form-control" placeholder="Enter your first name" required>
         </div>
+
         <div class="form-group">
             <label for="LastName">Last Name</label>
             <input type="text" id="LastName" name="LastName" class="form-control" placeholder="Enter your last name" required>
         </div>
+
         <div class="form-group">
-            <label for="Email">Username</label>
-            <input type="username" id="username" name="Username" class="form-control" placeholder="Enter your username" required>
+            <label for="Username">Username</label>
+            <input type="text" id="Username" name="Username" class="form-control" placeholder="Enter your username" required>
         </div>
+
+        <div class="form-group">
+            <label for="PhoneNumber">Phone Number</label>
+            <input type="tel" id="PhoneNumber" name="PhoneNumber" class="form-control" placeholder="Enter your phone number" required>
+        </div>
+
         <div class="form-group">
             <label for="Email">Email</label>
             <input type="email" id="Email" name="Email" class="form-control" placeholder="Enter your email" required>
         </div>
+
         <div class="form-group">
             <label for="Password">Password</label>
             <input type="password" id="Password" name="UnhashedPassword" class="form-control" placeholder="Create a password" required>
         </div>
+
         <div class="form-group">
             <label for="ConfirmPassword">Confirm Password</label>
             <input type="password" id="ConfirmPassword" name="ConfirmPassword" class="form-control" placeholder="Confirm your password" required>
         </div>
+
         <button type="submit" class="btn">Register</button>
+
         <div class="login-link">
             <p>Already have an account? <a asp-controller="User" asp-action="Login">Login here</a>.</p>
         </div>

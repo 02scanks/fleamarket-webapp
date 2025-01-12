@@ -7,4 +7,5 @@ public class User : IdentityUser
     public string Address { get; set; }
     public string ProfilePictureURL { get; set; }
     public string FirebaseToken { get; set; }
+    public string PhoneNumber { get; set; }
 }

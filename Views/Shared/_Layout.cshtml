@@ -81,11 +81,15 @@
     </div>
 
     <!-- Footer -->
-    <footer class="border-top footer text-muted py-3">
-        <div class="container text-center">
-            &copy; 2025 - Flea Market - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+<footer class="footer text-muted py-2" style="background-color: #f8f9fa; font-size: 14px; border-top: 1px solid #ddd;">
+    <div class="container text-center">
+        <span>&copy; 2025 Flea Market</span> | 
+        <a asp-area="" asp-controller="Home" asp-action="Privacy" style="color: var(--primary-color); text-decoration: none;">
+            Privacy Policy
+        </a>
+    </div>
+</footer>
+
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
